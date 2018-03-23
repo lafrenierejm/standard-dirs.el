@@ -26,5 +26,11 @@
          (file-name-as-directory (getenv "HOME"))))
   "The absolute path of the user's home directory.")
 
+(defconst user-cache-directory
+  (cond ((eq system-type 'gnu/linux)
+         (aif (getenv "XDG_CACHE_HOME")
+             (file-name-as-directory it)
+           (concat user-home-directory ".cache/")))))
+
 (provide 'directories)
 ;;; directories.el ends here
