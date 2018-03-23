@@ -5,4 +5,5 @@
 (files "directories.el" "ert/directories-ert.el")
 
 (development
- (depends-on "anaphora"))
+ (depends-on "anaphora")
+ (depends-on "ert-runner"))
