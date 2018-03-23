@@ -1,3 +1,8 @@
+(load
+ (expand-file-name "directories.el"
+                   (file-name-directory
+                    (directory-file-name
+                     (file-name-directory buffer-file-name)))))
 (require 'directories)
 
 (ert-deftest test-user-home-directory nil
