@@ -8,29 +8,57 @@
 ;; URL: https://github.com/lafrenierejm/directories-elisp
 ;; Version: 0.0.1
 ;; Keywords: files
-;; Package-Requires: ((anaphora "1.0.0"))
 ;;
 ;;; Commentary:
-;; The purpose of this package is to provide platform-specfic,
-;; user-accessible locations for reading and writing configuration,
-;; cache, and other data.
-;; On Linux, this package conforms to the XDG base directory and XDG
-;; user directory specifications published by the freedesktop.org
+;; The purpose of this package is to provide platform-specfic, paths for reading
+;; and writing configuration, cache, and other data.
+;;
+;; On Linux (`gnu/linux'), the directory paths conform to the XDG base directory
+;; and XDG user directory specifications as published by the freedesktop.org
 ;; project.
 ;;
+;; On macOS (`darwin'), the directory paths conform to Apple's documentation at
+;; https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFileSystem/Articles/WhereToPutFiles.html.
+;;
 ;;; Code:
-(require 'anaphora)
+(eval-when-compile
+  (require 'env)
+  (require 'files)
+  (case system-type
+    ('gnu/linux
+     (require 'xdg))
+    ('darwin
+     (require 'cl-seq))))
 
-(defconst user-home-directory
-  (cond ((eq system-type 'gnu/linux)
-         (file-name-as-directory (getenv "HOME"))))
-  "The absolute path of the user's home directory.")
+(defgroup directories)
 
-(defconst user-cache-directory
-  (cond ((eq system-type 'gnu/linux)
-         (aif (getenv "XDG_CACHE_HOME")
-             (file-name-as-directory it)
-           (concat user-home-directory ".cache/")))))
+(defun directories--make-directory (dir)
+  "Create and return the directory DIR."
+  (make-directory dir t)
+  (file-name-as-directory dir))
+
+(defun directories--reduce-path (default-directory name)
+  "Combine DIRS into a single path."
+  (expand-file-name name default-directory))
+
+(defconst directories-user-home
+  (file-name-as-directory
+   (case system-type
+     ('gnu/linux
+      (getenv "HOME"))
+     ('darwin
+      (getenv "HOME"))))
+  "The current user's home directory.")
+
+(defconst directories-user-cache
+  (directories--make-directory
+   (case system-type
+     ('gnu/linux
+      (xdg-cache-home))
+     ('darwin
+      (reduce #'directories--reduce-path
+              (list (getenv "HOME") "Library" "Caches")))))
+  "The base directory for user-specific cache files.")
 
 (provide 'directories)
 ;;; directories.el ends here
