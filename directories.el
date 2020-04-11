@@ -76,5 +76,14 @@
       (xdg-config-home))
      ('darwin
       (f-join (list directories-user-home "Library" "Preferences"))))))
+
+(defconst directories-user-data-home
+  (file-name-as-directory
+   (case system-type
+     ('gnu/linux
+      (xdg-data-home))
+     ('darwin
+      (f-join (list directories-user-home "Library"))))))
+
 (provide 'directories)
 ;;; directories.el ends here
