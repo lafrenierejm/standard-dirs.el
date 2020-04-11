@@ -62,8 +62,8 @@
       (getenv "HOME"))))
   "The current user's home directory.")
 
-(defconst directories-user-cache
-  (directories--make-directory
+(defconst directories-user-cache-home
+  (file-name-as-directory
    (case system-type
      ('gnu/linux
       (xdg-cache-home))
