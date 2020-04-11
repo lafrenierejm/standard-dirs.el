@@ -66,7 +66,7 @@
      ('gnu/linux
       (xdg-cache-home))
      ('darwin
-      (f-join (list (getenv "HOME") "Library" "Caches")))))
+      (f-join (list directories-user-home "Library" "Caches")))))
   "The base directory for user-specific cache files.")
 
 (provide 'directories)
