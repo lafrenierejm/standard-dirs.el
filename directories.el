@@ -8,6 +8,7 @@
 ;; URL: https://github.com/lafrenierejm/directories-elisp
 ;; Version: 0.0.1
 ;; Keywords: files
+;; Package-Requires: ((f))
 
 ;; This program is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free Software
@@ -37,6 +38,7 @@
 ;;; Code:
 (eval-when-compile
   (require 'env)
+  (require 'f)
   (require 'files)
   (case system-type
     ('gnu/linux
@@ -50,10 +52,6 @@
   "Create and return the directory DIR."
   (make-directory dir t)
   (file-name-as-directory dir))
-
-(defun directories--reduce-path (default-directory name)
-  "Combine DIRS into a single path."
-  (expand-file-name name default-directory))
 
 (defconst directories-user-home
   (file-name-as-directory
@@ -70,8 +68,7 @@
      ('gnu/linux
       (xdg-cache-home))
      ('darwin
-      (reduce #'directories--reduce-path
-              (list (getenv "HOME") "Library" "Caches")))))
+      (f-join (list (getenv "HOME") "Library" "Caches")))))
   "The base directory for user-specific cache files.")
 
 (provide 'directories)
