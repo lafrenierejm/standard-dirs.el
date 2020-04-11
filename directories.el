@@ -69,5 +69,12 @@
       (f-join (list directories-user-home "Library" "Caches")))))
   "The base directory for user-specific cache files.")
 
+(defconst directories-user-config-home
+  (file-name-as-directory
+   (case system-type
+     ('gnu/linux
+      (xdg-config-home))
+     ('darwin
+      (f-join (list directories-user-home "Library" "Preferences"))))))
 (provide 'directories)
 ;;; directories.el ends here
