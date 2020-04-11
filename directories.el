@@ -42,9 +42,7 @@
   (require 'files)
   (case system-type
     ('gnu/linux
-     (require 'xdg))
-    ('darwin
-     (require 'cl-seq))))
+     (require 'xdg))))
 
 (defgroup directories)
 
