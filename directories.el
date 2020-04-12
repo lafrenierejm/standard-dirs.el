@@ -233,7 +233,7 @@ following arguments
 - TLD: \"org\"
 - ORG: \"Baz Corp\"
 - APP: \"Foo Bar-App\""
-                 dir-type)
+                 ,dir-type)
          (let ((project-name (directories--assemble-project-name
                               tld org app)))
            (directories--make-directory
