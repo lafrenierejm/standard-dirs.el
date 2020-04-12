@@ -46,44 +46,49 @@
 
 (defgroup directories)
 
-(defun directories--make-directory (dir)
-  "Create and return the directory DIR."
-  (make-directory dir t)
-  (file-name-as-directory dir))
+;;; User Directories
+;; Retrieve paths of the standard user directories defined by the platform's
+;; standards.
 
-(defconst directories-user-home
+;;;###autoload
+(defun directories-user ()
+  "Get the current user's home directory."
   (file-name-as-directory
    (case system-type
      ('gnu/linux
       (getenv "HOME"))
      ('darwin
-      (getenv "HOME"))))
-  "The current user's home directory.")
+      (getenv "HOME")))))
 
-(defconst directories-user-cache-home
+;;;###autoload
+(defun directories-user-cache ()
+  "Get the base directory for user-specific cache files."
   (file-name-as-directory
    (case system-type
      ('gnu/linux
       (xdg-cache-home))
      ('darwin
-      (f-join (list directories-user-home "Library" "Caches")))))
-  "The base directory for user-specific cache files.")
+      (f-join (directories-user) "Library" "Caches")))))
 
-(defconst directories-user-config-home
+;;;###autoload
+(defun directories-user-config ()
+  "Get the base directory for user-specific configuration files."
   (file-name-as-directory
    (case system-type
      ('gnu/linux
       (xdg-config-home))
      ('darwin
-      (f-join (list directories-user-home "Library" "Preferences"))))))
+      (f-join (directories-user) "Library" "Preferences")))))
 
-(defconst directories-user-data-home
+;;;###autoload
+(defun directories-user-data ()
+  "Get the base directory for user-specific data files."
   (file-name-as-directory
    (case system-type
      ('gnu/linux
       (xdg-data-home))
      ('darwin
-      (f-join (list directories-user-home "Library"))))))
+      (f-join (directories-user) "Library")))))
 
 (provide 'directories)
 ;;; directories.el ends here
