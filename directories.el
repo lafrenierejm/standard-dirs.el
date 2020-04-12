@@ -92,6 +92,16 @@
       (f-join (directories-user) "Library")))))
 
 ;;;###autoload
+(defun directories-user-data-local ()
+  "Get the base directory for user-specific data files."
+  (file-name-as-directory
+   (case system-type
+     ('gnu/linux
+      (xdg-data-home))
+     ('darwin
+      (f-join (directories-user) "Library")))))
+
+;;;###autoload
 (defun directories-user-audio ()
   "Get the base directory for the current user's audio files."
   (file-name-as-directory
