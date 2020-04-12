@@ -42,7 +42,10 @@
 (require 's)
 (require 'xdg)
 
-(defgroup directories)
+(defgroup directories nil
+  "Directory paths that conform to platform-specific standards."
+  :prefix "directories-"
+  :group 'files)
 
 ;;; User Directories
 ;; Retrieve paths of the standard user directories defined by the platform's
