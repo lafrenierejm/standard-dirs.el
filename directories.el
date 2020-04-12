@@ -40,9 +40,7 @@
 (require 'f)
 (require 'files)
 (require 's)
-(case system-type
-  ('gnu/linux
-   (require 'xdg)))
+(require 'xdg)
 
 (defgroup directories)
 
