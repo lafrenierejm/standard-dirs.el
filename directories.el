@@ -8,7 +8,7 @@
 ;; URL: https://github.com/lafrenierejm/directories-elisp
 ;; Version: 0.0.1
 ;; Keywords: files
-;; Package-Requires: ((f))
+;; Package-Requires: ((f) (s))
 
 ;; This program is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free Software
@@ -40,6 +40,7 @@
   (require 'env)
   (require 'f)
   (require 'files)
+  (require 's)
   (case system-type
     ('gnu/linux
      (require 'xdg))))
@@ -177,6 +178,67 @@
       (xdg-user-dir "VIDEOS"))
      ('darwin
       (f-join (directories-user) "Movies")))))
+
+;;; Project Directories
+;; Create project-specific directories for the current user.
+
+(defun directories--assemble-project-name (tld org app)
+  "Assemble platform-dependent name from a TLD, ORG, and APP.
+
+For example, an application \"Foo Bar-App\" published by an organization \"Baz
+Corp\" whose website top-level domain (TLD) is .org would be passed as the
+following arguments
+- TLD: \"org\"
+- ORG: \"Baz Corp\"
+- APP: \"Foo Bar-App\"
+and would result in the following values
+- darwin: \"org.Baz-Corp.Foo-Bar-App\"
+- gnu/linux: \"foobar-app\""
+  (case system-type
+    ('darwin
+     (s-join "." (list tld
+                       (s-replace " " "-" org)
+                       (s-replace " " "-" app))))
+    ('gnu/linux
+     (s-downcase (s-replace " " "" app)))))
+
+(defun directories--make-directory (dir)
+  "Create and return the directory DIR."
+  (make-directory dir t)
+  (file-name-as-directory dir))
+
+(defmacro directories--defun-project (dir-type)
+  "Define a directories-project function for directory type DIR-TYPE."
+  (let ((name (intern (concat "directories-project-" dir-type)))
+        (user-func (intern (concat "directories-user-" dir-type))))
+    `(progn
+       ,(and (buffer-file-name)
+             `(autoload ',name ,(buffer-file-name)))
+       (defun ,name (tld org app)
+         (format "Make and return the %s path for a project identified by TLD, ORG, and APP.
+
+For example, an application \"Foo Bar-App\" published by an organization \"Baz
+Corp\" whose website's top-level domain (TLD) is .org would be passed as the
+following arguments
+- TLD: \"org\"
+- ORG: \"Baz Corp\"
+- APP: \"Foo Bar-App\""
+                 dir-type)
+         (let ((project-name (directories--assemble-project-name
+                              tld org app)))
+           (directories--make-directory
+            (case system-type
+              ('darwin
+               (f-join (,user-func) project-name))
+              ('gnu/linux
+               (f-join (,user-func) project-name)))))))))
+
+;; The following are autoloaded as part of the macro.
+(directories--defun-project "cache")
+(directories--defun-project "config")
+(directories--defun-project "data")
+(directories--defun-project "data-local")
+(directories--defun-project "runtime")
 
 (provide 'directories)
 ;;; directories.el ends here
