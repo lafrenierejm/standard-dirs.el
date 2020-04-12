@@ -36,7 +36,6 @@
 ;; https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFileSystem/Articles/WhereToPutFiles.html.
 
 ;;; Code:
-(require 'cl-macs)
 (require 'env)
 (require 'f)
 (require 'files)
@@ -56,7 +55,7 @@
 (defun directories-user ()
   "Get the current user's home directory."
   (file-name-as-directory
-   (case system-type
+   (pcase system-type
      ('gnu/linux
       (getenv "HOME"))
      ('darwin
@@ -66,7 +65,7 @@
 (defun directories-user-cache ()
   "Get the base directory for user-specific cache files."
   (file-name-as-directory
-   (case system-type
+   (pcase system-type
      ('gnu/linux
       (xdg-cache-home))
      ('darwin
@@ -76,7 +75,7 @@
 (defun directories-user-config ()
   "Get the base directory for user-specific configuration files."
   (file-name-as-directory
-   (case system-type
+   (pcase system-type
      ('gnu/linux
       (xdg-config-home))
      ('darwin
@@ -86,7 +85,7 @@
 (defun directories-user-data ()
   "Get the base directory for user-specific data files."
   (file-name-as-directory
-   (case system-type
+   (pcase system-type
      ('gnu/linux
       (xdg-data-home))
      ('darwin
@@ -96,7 +95,7 @@
 (defun directories-user-data-local ()
   "Get the base directory for user-specific data files."
   (file-name-as-directory
-   (case system-type
+   (pcase system-type
      ('gnu/linux
       (xdg-data-home))
      ('darwin
@@ -106,7 +105,7 @@
 (defun directories-user-audio ()
   "Get the base directory for the current user's audio files."
   (file-name-as-directory
-   (case system-type
+   (pcase system-type
      ('gnu/linux
       (xdg-user-dir "MUSIC"))
      ('darwin
@@ -116,7 +115,7 @@
 (defun directories-user-desktop ()
   "Get the base directory for the current user's desktop files."
   (file-name-as-directory
-   (case system-type
+   (pcase system-type
      ('gnu/linux
       (xdg-user-dir "DESKTOP"))
      ('darwin
@@ -126,7 +125,7 @@
 (defun directories-user-document ()
   "Get the base directory for the current user's document files."
   (file-name-as-directory
-   (case system-type
+   (pcase system-type
      ('gnu/linux
       (xdg-user-dir "DOCUMENTS"))
      ('darwin
@@ -136,7 +135,7 @@
 (defun directories-user-downloads ()
   "Get the base directory for the current user's downloaded files."
   (file-name-as-directory
-   (case system-type
+   (pcase system-type
      ('gnu/linux
       (xdg-user-dir "DOWNLOAD"))
      ('darwin
@@ -146,7 +145,7 @@
 (defun directories-user-font ()
   "Get the base directory for the current user's fonts."
   (file-name-as-directory
-   (case system-type
+   (pcase system-type
      ('gnu/linux
       (f-join (directories-user-data) "fonts"))
      ('darwin
@@ -156,7 +155,7 @@
 (defun directories-user-picture ()
   "Get the base directory for the current user's picture files."
   (file-name-as-directory
-   (case system-type
+   (pcase system-type
      ('gnu/linux
       (xdg-user-dir "PICTURES"))
      ('darwin
@@ -166,7 +165,7 @@
 (defun directories-user-public ()
   "Get the base directory for the current user's public files."
   (file-name-as-directory
-   (case system-type
+   (pcase system-type
      ('gnu/linux
       (xdg-user-dir "PUBLICSHARE"))
      ('darwin
@@ -176,7 +175,7 @@
 (defun directories-user-template ()
   "Get the base directory for the current user's template files."
   (file-name-as-directory
-   (case system-type
+   (pcase system-type
      ('gnu/linux
       (xdg-user-dir "TEMPLATES")))))
 
@@ -184,7 +183,7 @@
 (defun directories-user-video ()
   "Get the base directory for the current user's video files."
   (file-name-as-directory
-   (case system-type
+   (pcase system-type
      ('gnu/linux
       (xdg-user-dir "VIDEOS"))
      ('darwin
@@ -205,7 +204,7 @@ following arguments
 and would result in the following values
 - darwin: \"org.Baz-Corp.Foo-Bar-App\"
 - gnu/linux: \"foobar-app\""
-  (case system-type
+  (pcase system-type
     ('darwin
      (s-join "." (list tld
                        (s-replace " " "-" org)
@@ -238,7 +237,7 @@ following arguments
          (let ((project-name (directories--assemble-project-name
                               tld org app)))
            (directories--make-directory
-            (case system-type
+            (pcase system-type
               ('darwin
                (f-join (,user-func) project-name))
               ('gnu/linux
