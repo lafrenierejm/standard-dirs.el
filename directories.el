@@ -1,4 +1,4 @@
-;;; directories.el --- Provide platform-specific paths for configuration, cache, and other data
+;;; directories.el --- Provide platform-specific paths for configuration, cache, and other data  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2018 Joseph M LaFreniere
 
