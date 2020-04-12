@@ -36,6 +36,7 @@
 ;; https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFileSystem/Articles/WhereToPutFiles.html.
 
 ;;; Code:
+(require 'cl-macs)
 (require 'env)
 (require 'f)
 (require 'files)
