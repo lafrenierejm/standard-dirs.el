@@ -36,14 +36,13 @@
 ;; https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFileSystem/Articles/WhereToPutFiles.html.
 
 ;;; Code:
-(eval-when-compile
-  (require 'env)
-  (require 'f)
-  (require 'files)
-  (require 's)
-  (case system-type
-    ('gnu/linux
-     (require 'xdg))))
+(require 'env)
+(require 'f)
+(require 'files)
+(require 's)
+(case system-type
+  ('gnu/linux
+   (require 'xdg)))
 
 (defgroup directories)
 
