@@ -90,5 +90,93 @@
      ('darwin
       (f-join (directories-user) "Library")))))
 
+;;;###autoload
+(defun directories-user-audio ()
+  "Get the base directory for the current user's audio files."
+  (file-name-as-directory
+   (case system-type
+     ('gnu/linux
+      (xdg-user-dir "MUSIC"))
+     ('darwin
+      (f-join (directories-user) "Music")))))
+
+;;;###autoload
+(defun directories-user-desktop ()
+  "Get the base directory for the current user's desktop files."
+  (file-name-as-directory
+   (case system-type
+     ('gnu/linux
+      (xdg-user-dir "DESKTOP"))
+     ('darwin
+      (f-join (directories-user) "DESKTOP")))))
+
+;;;###autoload
+(defun directories-user-document ()
+  "Get the base directory for the current user's document files."
+  (file-name-as-directory
+   (case system-type
+     ('gnu/linux
+      (xdg-user-dir "DOCUMENTS"))
+     ('darwin
+      (f-join (directories-user) "Documents")))))
+
+;;;###autoload
+(defun directories-user-downloads ()
+  "Get the base directory for the current user's downloaded files."
+  (file-name-as-directory
+   (case system-type
+     ('gnu/linux
+      (xdg-user-dir "DOWNLOAD"))
+     ('darwin
+      (f-join (directories-user) "Downloads")))))
+
+;;;###autoload
+(defun directories-user-font ()
+  "Get the base directory for the current user's fonts."
+  (file-name-as-directory
+   (case system-type
+     ('gnu/linux
+      (f-join (directories-user-data) "fonts"))
+     ('darwin
+      (f-join (directories-user) "Library" "Fonts")))))
+
+;;;###autoload
+(defun directories-user-picture ()
+  "Get the base directory for the current user's picture files."
+  (file-name-as-directory
+   (case system-type
+     ('gnu/linux
+      (xdg-user-dir "PICTURES"))
+     ('darwin
+      (f-join (directories-user) "Pictures")))))
+
+;;;###autoload
+(defun directories-user-public ()
+  "Get the base directory for the current user's public files."
+  (file-name-as-directory
+   (case system-type
+     ('gnu/linux
+      (xdg-user-dir "PUBLICSHARE"))
+     ('darwin
+      (f-join (directories-user) "Public")))))
+
+;;;###autoload
+(defun directories-user-template ()
+  "Get the base directory for the current user's template files."
+  (file-name-as-directory
+   (case system-type
+     ('gnu/linux
+      (xdg-user-dir "TEMPLATES")))))
+
+;;;###autoload
+(defun directories-user-video ()
+  "Get the base directory for the current user's video files."
+  (file-name-as-directory
+   (case system-type
+     ('gnu/linux
+      (xdg-user-dir "VIDEOS"))
+     ('darwin
+      (f-join (directories-user) "Movies")))))
+
 (provide 'directories)
 ;;; directories.el ends here
