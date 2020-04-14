@@ -221,11 +221,8 @@ and would result in the following values
   "Define a directories-project function for directory type DIR-TYPE."
   (let ((name (intern (concat "directories-project-" dir-type)))
         (user-func (intern (concat "directories-user-" dir-type))))
-    `(progn
-       ,(and (buffer-file-name)
-             `(autoload ',name ,(buffer-file-name)))
-       (defun ,name (tld org app)
-         (format "Make and return the %s path for a project identified by TLD, ORG, and APP.
+    `(defun ,name (tld org app)
+       ,(format "Make and return the %s path for a project identified by TLD, ORG, and APP.
 
 For example, an application \"Foo Bar-App\" published by an organization \"Baz
 Corp\" whose website's top-level domain (TLD) is .org would be passed as the
@@ -233,21 +230,29 @@ following arguments
 - TLD: \"org\"
 - ORG: \"Baz Corp\"
 - APP: \"Foo Bar-App\""
-                 ,dir-type)
-         (let ((project-name (directories--assemble-project-name
-                              tld org app)))
-           (directories--make-directory
-            (pcase system-type
-              ('darwin
-               (f-join (,user-func) project-name))
-              ('gnu/linux
-               (f-join (,user-func) project-name)))))))))
+                dir-type)
+       (let ((project-name (directories--assemble-project-name
+                            tld org app)))
+         (directories--make-directory
+          (pcase system-type
+            ('darwin
+             (f-join (,user-func) project-name))
+            ('gnu/linux
+             (f-join (,user-func) project-name))))))))
 
-;; The following are autoloaded as part of the macro.
+;;;###autoload (autoload 'directories-project-cache "directories.el")
 (directories--defun-project "cache")
+
+;;;###autoload (autoload 'directories-project-config "directories.el")
 (directories--defun-project "config")
+
+;;;###autoload (autoload 'directories-project-data "directories.el")
 (directories--defun-project "data")
+
+;;;###autoload (autoload 'directories-project-data-local "directories.el")
 (directories--defun-project "data-local")
+
+;;;###autoload (autoload 'directories-project-runtime "directories.el")
 (directories--defun-project "runtime")
 
 (provide 'directories)
