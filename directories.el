@@ -172,6 +172,14 @@
       (f-join (directories-user) "Public")))))
 
 ;;;###autoload
+(defun directories-user-runtime ()
+  "Get the base directory for the current user's template files."
+  (file-name-as-directory
+   (pcase system-type
+     ('gnu/linux
+      (xdg-runtime-dir)))))
+
+;;;###autoload
 (defun directories-user-template ()
   "Get the base directory for the current user's template files."
   (file-name-as-directory
