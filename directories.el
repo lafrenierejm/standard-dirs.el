@@ -40,6 +40,7 @@
 (require 'f)
 (require 'files)
 (require 's)
+(require 'subr-x)
 (require 'xdg)
 
 (defgroup directories nil
@@ -239,14 +240,15 @@ Software Foundation\" whose website (gnu.org)'s top-level domain (TLD) is
 - ORG: \"Free Software Foundation\"
 - APP: \"Emacs\""
                 dir-type)
-       (let ((project-name (directories--assemble-project-name
-                            tld org app)))
+       (when-let ((project-name (directories--assemble-project-name
+                                 tld org app))
+                  (user-dir (,user-func)))
          (directories--make-directory
           (pcase system-type
             ('darwin
-             (f-join (,user-func) project-name))
+             (f-join user-dir project-name))
             ('gnu/linux
-             (f-join (,user-func) project-name))))))))
+             (f-join user-dir project-name))))))))
 
 ;;;###autoload (autoload 'directories-project-cache "directories.el")
 (directories--defun-project "cache")
