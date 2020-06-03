@@ -1,4 +1,4 @@
-;;; directories.el --- Provide platform-specific paths for configuration, cache, and other data  -*- lexical-binding: t; -*-
+;;; directories.el --- Platform-specific paths for config, cache, and other data  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2018 Joseph M LaFreniere
 
@@ -8,7 +8,7 @@
 ;; URL: https://github.com/lafrenierejm/directories-elisp
 ;; Version: 1.0.0
 ;; Keywords: files
-;; Package-Requires: ((f) (s))
+;; Package-Requires: ((emacs "26.1") (f "0.20.0") (s "1.7.0"))
 
 ;; This program is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free Software
