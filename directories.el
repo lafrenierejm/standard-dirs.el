@@ -224,12 +224,12 @@ and would result in the following values
     `(defun ,name (tld org app)
        ,(format "Make and return the %s path for a project identified by TLD, ORG, and APP.
 
-For example, an application \"Foo Bar-App\" published by an organization \"Baz
-Corp\" whose website's top-level domain (TLD) is .org would be passed as the
-following arguments
+For example, the application \"Emacs\" published by the organization \"Free
+Software Foundation\" whose website (gnu.org)'s top-level domain (TLD) is
+\"org\" would be passed as the following arguments
 - TLD: \"org\"
-- ORG: \"Baz Corp\"
-- APP: \"Foo Bar-App\""
+- ORG: \"Free Software Foundation\"
+- APP: \"Emacs\""
                 dir-type)
        (let ((project-name (directories--assemble-project-name
                             tld org app)))
