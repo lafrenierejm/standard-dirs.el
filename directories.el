@@ -6,7 +6,7 @@
 ;; Maintainer: Joseph M LaFreniere <joseph@lafreniere.xyz>
 ;; License: GPL3+
 ;; URL: https://github.com/lafrenierejm/directories-elisp
-;; Version: 0.0.1
+;; Version: 1.0.0
 ;; Keywords: files
 ;; Package-Requires: ((f) (s))
 
