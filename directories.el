@@ -25,7 +25,7 @@
 
 ;;; Commentary:
 
-;; The purpose of this package is to provide platform-specfic paths for reading
+;; The purpose of this package is to provide platform-specific paths for reading
 ;; and writing configuration, cache, and other data.
 
 ;; On Linux (`gnu/linux'), the directory paths conform to the XDG base directory
