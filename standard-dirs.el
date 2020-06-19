@@ -1,4 +1,4 @@
-;;; directories.el --- Platform-specific paths for config, cache, and other data  -*- lexical-binding: t; -*-
+;;; standard-dirs.el --- Platform-specific paths for config, cache, and other data  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2018 Joseph M LaFreniere
 
@@ -43,9 +43,9 @@
 (require 'subr-x)
 (require 'xdg)
 
-(defgroup directories nil
+(defgroup standard-dirs nil
   "Directory paths that conform to platform-specific standards."
-  :prefix "directories-"
+  :prefix "standard-dirs"
   :group 'files)
 
 ;;; User Directories
@@ -53,7 +53,7 @@
 ;; standards.
 
 ;;;###autoload
-(defun directories-user ()
+(defun standard-dirs-user ()
   "Get the current user's home directory."
   (file-name-as-directory
    (pcase system-type
@@ -63,117 +63,117 @@
       (getenv "HOME")))))
 
 ;;;###autoload
-(defun directories-user-cache ()
+(defun standard-dirs-user-cache ()
   "Get the base directory for user-specific cache files."
   (file-name-as-directory
    (pcase system-type
      ('gnu/linux
       (xdg-cache-home))
      ('darwin
-      (f-join (directories-user) "Library" "Caches")))))
+      (f-join (standard-dirs-user) "Library" "Caches")))))
 
 ;;;###autoload
-(defun directories-user-config ()
+(defun standard-dirs-user-config ()
   "Get the base directory for user-specific configuration files."
   (file-name-as-directory
    (pcase system-type
      ('gnu/linux
       (xdg-config-home))
      ('darwin
-      (f-join (directories-user) "Library" "Preferences")))))
+      (f-join (standard-dirs-user) "Library" "Preferences")))))
 
 ;;;###autoload
-(defun directories-user-data ()
+(defun standard-dirs-user-data ()
   "Get the base directory for user-specific data files."
   (file-name-as-directory
    (pcase system-type
      ('gnu/linux
       (xdg-data-home))
      ('darwin
-      (f-join (directories-user) "Library")))))
+      (f-join (standard-dirs-user) "Library")))))
 
 ;;;###autoload
-(defun directories-user-data-local ()
+(defun standard-dirs-user-data-local ()
   "Get the base directory for user-specific data files."
   (file-name-as-directory
    (pcase system-type
      ('gnu/linux
       (xdg-data-home))
      ('darwin
-      (f-join (directories-user) "Library")))))
+      (f-join (standard-dirs-user) "Library")))))
 
 ;;;###autoload
-(defun directories-user-audio ()
+(defun standard-dirs-user-audio ()
   "Get the base directory for the current user's audio files."
   (file-name-as-directory
    (pcase system-type
      ('gnu/linux
       (xdg-user-dir "MUSIC"))
      ('darwin
-      (f-join (directories-user) "Music")))))
+      (f-join (standard-dirs-user) "Music")))))
 
 ;;;###autoload
-(defun directories-user-desktop ()
+(defun standard-dirs-user-desktop ()
   "Get the base directory for the current user's desktop files."
   (file-name-as-directory
    (pcase system-type
      ('gnu/linux
       (xdg-user-dir "DESKTOP"))
      ('darwin
-      (f-join (directories-user) "DESKTOP")))))
+      (f-join (standard-dirs-user) "DESKTOP")))))
 
 ;;;###autoload
-(defun directories-user-document ()
+(defun standard-dirs-user-document ()
   "Get the base directory for the current user's document files."
   (file-name-as-directory
    (pcase system-type
      ('gnu/linux
       (xdg-user-dir "DOCUMENTS"))
      ('darwin
-      (f-join (directories-user) "Documents")))))
+      (f-join (standard-dirs-user) "Documents")))))
 
 ;;;###autoload
-(defun directories-user-downloads ()
+(defun standard-dirs-user-downloads ()
   "Get the base directory for the current user's downloaded files."
   (file-name-as-directory
    (pcase system-type
      ('gnu/linux
       (xdg-user-dir "DOWNLOAD"))
      ('darwin
-      (f-join (directories-user) "Downloads")))))
+      (f-join (standard-dirs-user) "Downloads")))))
 
 ;;;###autoload
-(defun directories-user-font ()
+(defun standard-dirs-user-font ()
   "Get the base directory for the current user's fonts."
   (file-name-as-directory
    (pcase system-type
      ('gnu/linux
-      (f-join (directories-user-data) "fonts"))
+      (f-join (standard-dirs-user-data) "fonts"))
      ('darwin
-      (f-join (directories-user) "Library" "Fonts")))))
+      (f-join (standard-dirs-user) "Library" "Fonts")))))
 
 ;;;###autoload
-(defun directories-user-picture ()
+(defun standard-dirs-user-picture ()
   "Get the base directory for the current user's picture files."
   (file-name-as-directory
    (pcase system-type
      ('gnu/linux
       (xdg-user-dir "PICTURES"))
      ('darwin
-      (f-join (directories-user) "Pictures")))))
+      (f-join (standard-dirs-user) "Pictures")))))
 
 ;;;###autoload
-(defun directories-user-public ()
+(defun standard-dirs-user-public ()
   "Get the base directory for the current user's public files."
   (file-name-as-directory
    (pcase system-type
      ('gnu/linux
       (xdg-user-dir "PUBLICSHARE"))
      ('darwin
-      (f-join (directories-user) "Public")))))
+      (f-join (standard-dirs-user) "Public")))))
 
 ;;;###autoload
-(defun directories-user-runtime ()
+(defun standard-dirs-user-runtime ()
   "Get the base directory for the current user's template files."
   (file-name-as-directory
    (pcase system-type
@@ -181,7 +181,7 @@
       (xdg-runtime-dir)))))
 
 ;;;###autoload
-(defun directories-user-template ()
+(defun standard-dirs-user-template ()
   "Get the base directory for the current user's template files."
   (file-name-as-directory
    (pcase system-type
@@ -189,19 +189,19 @@
       (xdg-user-dir "TEMPLATES")))))
 
 ;;;###autoload
-(defun directories-user-video ()
+(defun standard-dirs-user-video ()
   "Get the base directory for the current user's video files."
   (file-name-as-directory
    (pcase system-type
      ('gnu/linux
       (xdg-user-dir "VIDEOS"))
      ('darwin
-      (f-join (directories-user) "Movies")))))
+      (f-join (standard-dirs-user) "Movies")))))
 
 ;;; Project Directories
 ;; Create project-specific directories for the current user.
 
-(defun directories--assemble-project-name (tld org app)
+(defun standard-dirs--assemble-project-name (tld org app)
   "Assemble platform-dependent name from a TLD, ORG, and APP.
 
 For example, an application \"Foo Bar-App\" published by an organization \"Baz
@@ -221,15 +221,15 @@ and would result in the following values
     ('gnu/linux
      (s-downcase (s-replace " " "" app)))))
 
-(defun directories--make-directory (dir)
+(defun standard-dirs--make-directory (dir)
   "Create and return the directory DIR."
   (make-directory dir t)
   (file-name-as-directory dir))
 
-(defmacro directories--defun-project (dir-type)
-  "Define a directories-project function for directory type DIR-TYPE."
-  (let ((name (intern (concat "directories-project-" dir-type)))
-        (user-func (intern (concat "directories-user-" dir-type))))
+(defmacro standard-dirs--defun-project (dir-type)
+  "Define a standard-dirs-project function for directory type DIR-TYPE."
+  (let ((name (intern (concat "standard-dirs-project-" dir-type)))
+        (user-func (intern (concat "standard-dirs-user-" dir-type))))
     `(defun ,name (tld org app)
        ,(format "Make and return the %s path for a project identified by TLD, ORG, and APP.
 
@@ -240,30 +240,30 @@ Software Foundation\" whose website (gnu.org)'s top-level domain (TLD) is
 - ORG: \"Free Software Foundation\"
 - APP: \"Emacs\""
                 dir-type)
-       (when-let ((project-name (directories--assemble-project-name
+       (when-let ((project-name (standard-dirs--assemble-project-name
                                  tld org app))
                   (user-dir (,user-func)))
-         (directories--make-directory
+         (standard-dirs--make-directory
           (pcase system-type
             ('darwin
              (f-join user-dir project-name))
             ('gnu/linux
              (f-join user-dir project-name))))))))
 
-;;;###autoload (autoload 'directories-project-cache "directories.el")
-(directories--defun-project "cache")
+;;;###autoload (autoload 'standard-dirs-project-cache "standard-dirs.el")
+(standard-dirs--defun-project "cache")
 
-;;;###autoload (autoload 'directories-project-config "directories.el")
-(directories--defun-project "config")
+;;;###autoload (autoload 'standard-dirs-project-config "standard-dirs.el")
+(standard-dirs--defun-project "config")
 
-;;;###autoload (autoload 'directories-project-data "directories.el")
-(directories--defun-project "data")
+;;;###autoload (autoload 'standard-dirs-project-data "standard-dirs.el")
+(standard-dirs--defun-project "data")
 
-;;;###autoload (autoload 'directories-project-data-local "directories.el")
-(directories--defun-project "data-local")
+;;;###autoload (autoload 'standard-dirs-project-data-local "standard-dirs.el")
+(standard-dirs--defun-project "data-local")
 
-;;;###autoload (autoload 'directories-project-runtime "directories.el")
-(directories--defun-project "runtime")
+;;;###autoload (autoload 'standard-dirs-project-runtime "standard-dirs.el")
+(standard-dirs--defun-project "runtime")
 
-(provide 'directories)
-;;; directories.el ends here
+(provide 'standard-dirs)
+;;; standard-dirs.el ends here
