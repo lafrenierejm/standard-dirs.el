@@ -5,7 +5,7 @@
 ;; Author: Joseph M LaFreniere <joseph@lafreniere.xyz>
 ;; Maintainer: Joseph M LaFreniere <joseph@lafreniere.xyz>
 ;; License: GPL3+
-;; URL: https://github.com/lafrenierejm/directories-elisp
+;; URL: https://github.com/lafrenierejm/standard-dirs.el
 ;; Version: 1.0.0
 ;; Keywords: files
 ;; Package-Requires: ((emacs "26.1") (f "0.20.0") (s "1.7.0"))
