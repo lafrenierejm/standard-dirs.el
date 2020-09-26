@@ -1,0 +1,35 @@
+#+TITLE: Standard Dirs
+#+SUBTITLE: Platform-specific paths for config, cache, and other data
+#+AUTHOR: Joseph M LaFreniere (lafrenierejm)
+
+/Standard Dirs/ is an Emacs library to provide platform-specific paths for reading and writing configuration, cache, and other data.
+Currently only Linux and macOS are supported.
+- On Linux, the directory paths conform to the XDG base directory and XDG user directory specifications as published by the freedesktop.org project.
+- On macOS, the directory paths conform to Apple's filesystem documentation [[https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFileSystem/Articles/WhereToPutFiles.html]["Where to Put Files"]].
+
+* Installation
+
+** package.el
+
+/Standard Dirs/ is available on MELPA as [[https://melpa.org/#/standard-dirs][standard-dirs]].
+To install:
+1. Setup MELPA as a package source.
+2. =M-x= package-install =[RET]=
+3. standard-dirs =[RET]=
+
+** GNU Guix
+
+/Standard Dirs/ available in mainline Guix as [[https://git.savannah.gnu.org/cgit/guix.git/commit/?id=cfcccc8a2afd13eaf103098e4d1611cef3b7123e][emacs-standard-dirs]].
+To install in the current profile, run =guix install emacs-standard-dirs=.
+
+* License
+
+Copyright © 2018 Joseph M LaFreniere.
+
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+
+The full license text is available at [[file:LICENSE][LICENSE]].
